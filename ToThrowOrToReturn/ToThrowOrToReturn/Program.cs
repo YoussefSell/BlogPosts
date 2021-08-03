@@ -12,16 +12,18 @@ namespace ToThrowOrToReturn
 
     public class PerformanceBenchmark
     {
-        readonly int _itemsToProcess = 100000;
+        readonly int _itemsToProcess = 1000;
 
         [Benchmark]
-        public void UsingExceptions()
+        public void UsingExceptions_WithoutErrors()
         {
             for (int i = 0; i < _itemsToProcess; i++)
             {
                 try
                 {
-                    EmailService.SendNotificationEmail_WithExceptions("", "");
+                    EmailService.SendNotificationEmail_WithExceptions(
+                        userEmail: "example@email.com",
+                        templateId: "template_id");
                 }
                 catch (Exception)
                 {
@@ -31,7 +33,41 @@ namespace ToThrowOrToReturn
         }
 
         [Benchmark]
-        public void UsingResultObject()
+        public void UsingResultObject_WithoutErrors()
+        {
+            for (int i = 0; i < _itemsToProcess; i++)
+            {
+                var result = EmailService.SendNotificationEmail_WithResultObject(
+                        userEmail: "example@email.com",
+                        templateId: "template_id");
+
+                if (result.IsSuccess())
+                {
+
+                }
+            }
+        }
+
+        [Benchmark]
+        public void UsingExceptions_WithErrors()
+        {
+            for (int i = 0; i < _itemsToProcess; i++)
+            {
+                try
+                {
+                    EmailService.SendNotificationEmail_WithExceptions(
+                        userEmail: "",
+                        templateId: "");
+                }
+                catch (Exception)
+                {
+
+                }
+            }
+        }
+
+        [Benchmark]
+        public void UsingResultObject_WithErrors()
         {
             for (int i = 0; i < _itemsToProcess; i++)
             {
@@ -42,7 +78,5 @@ namespace ToThrowOrToReturn
                 }
             }
         }
-
-
     }
 }

@@ -58,7 +58,7 @@ namespace ToThrowOrToReturn
 
         private static void sendEmail(SendTemplateEmailOptions sendTemplateEmailOptions)
         {
-            
+
         }
 
         private static object LoadTemplate(string key)
