@@ -5,14 +5,14 @@ using System;
 
 namespace ToThrowOrToReturn
 {
-    class Program
+    static class Program
     {
         static void Main() => BenchmarkRunner.Run<PerformanceBenchmark>();
     }
 
     public class PerformanceBenchmark
     {
-        readonly int _itemsToProcess = 1000;
+        readonly int _itemsToProcess = 10000;
 
         [Benchmark]
         public void UsingExceptions_WithoutErrors()
@@ -27,7 +27,7 @@ namespace ToThrowOrToReturn
                 }
                 catch (Exception)
                 {
-
+                    // custom code
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace ToThrowOrToReturn
 
                 if (result.IsSuccess())
                 {
-
+                    // custom code
                 }
             }
         }
@@ -61,7 +61,7 @@ namespace ToThrowOrToReturn
                 }
                 catch (Exception)
                 {
-
+                    // custom code
                 }
             }
         }
@@ -74,7 +74,7 @@ namespace ToThrowOrToReturn
                 var result = EmailService.SendNotificationEmail_WithResultObject("", "");
                 if (result.IsSuccess())
                 {
-
+                    // custom code
                 }
             }
         }
